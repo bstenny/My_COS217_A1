@@ -161,12 +161,9 @@ enum Statetype handleFSTAR_BSLASH(int c){
         state = FSTAR;
     }
     else if (c == '*') {
-        putchar('\\');
         state = STAR;
     }
     else {
-        putchar('\\');
-        putchar(c);
         state = FSTAR;
     }
     return state;
