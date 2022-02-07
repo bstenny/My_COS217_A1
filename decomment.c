@@ -66,7 +66,7 @@ enum Statetype handleFStar(int c) {
 enum Statetype handleStar(int c) {
     enum Statetype state;
     if (c == '/') {
-        state = NORMAL;
+        state = CODE;
     }
     else if (c == '*'){
         state = STAR;
@@ -96,7 +96,7 @@ enum Statetype handleDString(int c) {
 /*handler function for when the code enounters a single quote while in a single quote*/
 enum Statetype handleSSTRING(int c){
     enum Statetype state;
-    if (c == "\'"){
+    if (c == '\''){
         state = CODE;
         putchar(c);
     }
@@ -135,7 +135,8 @@ enum Statetype handleDSTRING_BSLASH(int c){
         putchar('\\');
         putchar(c);
     }
-    return DSTRING;
+    state = DSTRING;
+    return state;
 }
 
 /* handler function for when the code encounters a backslash while in a single quote*/
@@ -148,7 +149,8 @@ enum Statetype handleSSTRING_BSLASH(int c){
         putchar('\\');
         putchar(c);
     }
-    return SSTRING;
+    state = SSTRING;
+    return state;
 }
 
 /* handler function for when the code encounters a backslash while in a comment */
@@ -161,7 +163,8 @@ enum Statetype handleFSTAR_BSLASH(int c){
         putchar('\\');
         putchar(c);
     }
-    return FSTAR;
+    state = FSTAR;
+    return state;
 }
 
 
