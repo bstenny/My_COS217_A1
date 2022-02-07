@@ -8,8 +8,8 @@ enum Statetype {CODE, FSLASH, BSLASH, FSTAR, STAR, FSTAR_BSLASH,
         DSTRING, SSTRING, DSTRING_BSLASH, SSTRING_BSLASH};
 
 /* handler function for when code is just in a normal state */
-static enum Statetype handleCode(int c) {
-    enum Statetype state
+enum Statetype handleCode(int c) {
+    enum Statetype state;
     if (c == '/') {
         state = FSLASH;
     }
@@ -31,8 +31,8 @@ static enum Statetype handleCode(int c) {
     return state;
 }
 /* handler function for when code encounters a forward slash '\' */
-static enum Statetype handleFSlash(int c) {
-    enum Statetype state
+enum Statetype handleFSlash(int c) {
+    enum Statetype state;
     if (c == '*'){
         state = FSTAR;
         putchar(' ');
@@ -49,8 +49,8 @@ static enum Statetype handleFSlash(int c) {
     return state;
 }
 /* handler function for when code is in a comment */
-static enum Statetype handleFStar(int c) {
-    enum Statetype state
+enum Statetype handleFStar(int c) {
+    enum Statetype state;
     if (c == '*'){
         state = STAR;
     }
@@ -63,9 +63,9 @@ static enum Statetype handleFStar(int c) {
     return state;
 }
 /* handler function for when the code encounters a star while in a comment */
-static enum Statetype handleStar(int c) {
-    enum Statetype state
-    if (c == '/'){
+enum Statetype handleStar(int c) {
+    enum Statetype state;
+    if (c == '/') {
         state = NORMAL;
     }
     else if (c == '*'){
@@ -77,8 +77,8 @@ static enum Statetype handleStar(int c) {
     return state;
 }
 /* handler function for when the code encounters a double quote while in a quote state*/
-static enum Statetype handleDString(int c) {
-    enum Statetype state
+enum Statetype handleDString(int c) {
+    enum Statetype state;
     if (c == '"'){
         state = CODE;
         putchar(c);
@@ -94,8 +94,8 @@ static enum Statetype handleDString(int c) {
 }
 
 /*handler function for when the code enounters a single quote while in a single quote*/
-static enum Statetype handleSSTRING(int c){
-    enum Statetype state
+enum Statetype handleSSTRING(int c){
+    enum Statetype state;
     if (c == "\'"){
         state = CODE;
         putchar(c);
@@ -111,8 +111,8 @@ static enum Statetype handleSSTRING(int c){
 }
 
 /*handler function for when the code encounters a backslash in normal code*/
-static enum Statetype handleBSLASH(int c){
-    enum Statetype state
+enum Statetype handleBSLASH(int c){
+    enum Statetype state;
     if (c == 'n'){
         state = CODE;
         putchar('\n');
@@ -126,8 +126,8 @@ static enum Statetype handleBSLASH(int c){
 }
 
 /* handler function for when the code encounters a backslash while in a double quote*/
-static enum Statetype handleDSTRING_BSLASH(int c){
-    enum Statetype state
+enum Statetype handleDSTRING_BSLASH(int c){
+    enum Statetype state;
     if (c == 'n'){
         putchar('\n');
     }
@@ -139,8 +139,8 @@ static enum Statetype handleDSTRING_BSLASH(int c){
 }
 
 /* handler function for when the code encounters a backslash while in a single quote*/
-static enum Statetype handleSSTRING_BSLASH(int c){
-    enum Statetype state
+enum Statetype handleSSTRING_BSLASH(int c){
+    enum Statetype state;
     if (c == 'n'){
         putchar('\n');
     }
@@ -152,8 +152,8 @@ static enum Statetype handleSSTRING_BSLASH(int c){
 }
 
 /* handler function for when the code encounters a backslash while in a comment */
-static enum Statetype handleFSTAR_BSLASH(int c){
-    enum Statetype state
+enum Statetype handleFSTAR_BSLASH(int c){
+    enum Statetype state;
     if (c == 'n'){
         putchar('\n');
     }
