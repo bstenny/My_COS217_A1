@@ -245,7 +245,7 @@ int main(void) {
         }
     }
     if (state == FSTAR) {
-        return EXIT_FAILURE;
+        return 1;
     }
     return 0;
 }
