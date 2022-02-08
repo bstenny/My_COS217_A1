@@ -7,6 +7,7 @@
 
 enum Statetype {CODE, FSLASH, BSLASH, FSTAR, STAR, FSTAR_BSLASH,
         DSTRING, SSTRING, DSTRING_BSLASH, SSTRING_BSLASH};
+int currentLine;
 int commentLine;
 
 /* handler function for when code is just in a normal state */
@@ -27,6 +28,9 @@ enum Statetype handleCode(int c) {
         state = BSLASH;
     }
     else{
+       if (c == 10) { /* This is the newline ASCII character */
+            currentLine++;
+        }
         state = CODE;
         putchar(c);
     }
@@ -38,6 +42,7 @@ enum Statetype handleFSlash(int c) {
     if (c == '*'){
         state = FSTAR;
         putchar(' ');
+        commentLine = currentLine;
     }
     else if (c == '/'){
         state = FSLASH;
@@ -54,6 +59,9 @@ enum Statetype handleFSlash(int c) {
         putchar(c);
     }
     else {
+        if (c == 10) { /* This is the newline ASCII character */
+            currentLine++;
+        }
         state = CODE;
         putchar('/');
         putchar(c);
@@ -72,6 +80,7 @@ enum Statetype handleFStar(int c) {
     } */
     else if (c == 10) { /* This is the newline ASCII character */
         putchar(c);
+        currentLine++;
         state = FSTAR;
     }
     else {
@@ -84,12 +93,14 @@ enum Statetype handleStar(int c) {
     enum Statetype state;
     if (c == '/') {
         state = CODE;
+        commentLine = -1;
     }
     else if (c == '*'){
         state = STAR;
     }
     else if (c == 10) { /* This is the newline ASCII character */
         putchar(c);
+        currentLine++;
         state = FSTAR;
     }
     else {
@@ -108,6 +119,9 @@ enum Statetype handleDString(int c) {
         state = DSTRING_BSLASH;
     }
     else {
+        if (c == 10) { /* This is the newline ASCII character */
+            currentLine++;
+        }
         state = DSTRING;
         putchar(c);
     }
@@ -125,6 +139,9 @@ enum Statetype handleSSTRING(int c){
         state = SSTRING_BSLASH;
     }
     else {
+        if (c == 10) { /* This is the newline ASCII character */
+            currentLine++;
+        }
         state = SSTRING;
         putchar(c);
     }
@@ -154,6 +171,9 @@ enum Statetype handleBSLASH(int c){
         putchar(c);
     }
     else {
+        if (c == 10) { /* This is the newline ASCII character */
+            currentLine++;
+        }
         state = CODE;
         putchar('\\');
         putchar(c);
@@ -169,6 +189,9 @@ enum Statetype handleDSTRING_BSLASH(int c){
         putchar('n');
     }
     else {
+        if (c == 10) { /* This is the newline ASCII character */
+            currentLine++;
+        }
         putchar('\\');
         putchar(c);
     }
@@ -184,6 +207,9 @@ enum Statetype handleSSTRING_BSLASH(int c){
         putchar('n');
     }
     else {
+        if (c == 10) { /* This is the newline ASCII character */
+            currentLine++;
+        }
         putchar('\\');
         putchar(c);
     }
@@ -203,6 +229,9 @@ enum Statetype handleFSTAR_BSLASH(int c){
         state = STAR;
     }
     else {
+        if (c == 10) { /* This is the newline ASCII character */
+            currentLine++;
+        }
         state = FSTAR;
     }
     return state;
@@ -213,6 +242,7 @@ int main(void) {
     int c;
     enum Statetype state = CODE;
     commentLine = -1;
+    currentLine = 0;
     while ((c = getchar()) != EOF) {
         switch (state) {
             case CODE:
