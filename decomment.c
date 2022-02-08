@@ -244,8 +244,8 @@ int main(void) {
                 break;
         }
     }
-    /* This is to handle the edge case that we end on a backslash */
-    if (state == BSLASH || state == SSTRING_BSLASH || state == DSTRING_BSLASH) {
+    /* This is to handle the edge case that we end on a backslash or a slash*/
+    if (state == BSLASH || state == SSTRING_BSLASH || state == DSTRING_BSLASH || state == FSLASH) {
         putchar('\\');
     }
     if (state == FSTAR || state == STAR) {
