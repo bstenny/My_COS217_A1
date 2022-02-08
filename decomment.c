@@ -117,7 +117,8 @@ enum Statetype handleBSLASH(int c){
     enum Statetype state;
     if (c == 'n'){
         state = CODE;
-        putchar('\n');
+        putchar('\\');
+        putchar('n');
     }
     else {
         state = CODE;
@@ -131,7 +132,8 @@ enum Statetype handleBSLASH(int c){
 enum Statetype handleDSTRING_BSLASH(int c){
     enum Statetype state;
     if (c == 'n'){
-        putchar('\n');
+        putchar('\\');
+        putchar('n');
     }
     else {
         putchar('\\');
@@ -145,7 +147,8 @@ enum Statetype handleDSTRING_BSLASH(int c){
 enum Statetype handleSSTRING_BSLASH(int c){
     enum Statetype state;
     if (c == 'n'){
-        putchar('\n');
+        putchar('\\');
+        putchar('n');
     }
     else {
         putchar('\\');
@@ -159,7 +162,8 @@ enum Statetype handleSSTRING_BSLASH(int c){
 enum Statetype handleFSTAR_BSLASH(int c){
     enum Statetype state;
     if (c == 'n'){
-        putchar('\n');
+        putchar('\\');
+        putchar('n');
         state = FSTAR;
     }
     else if (c == '*') {
