@@ -141,6 +141,16 @@ enum Statetype handleBSLASH(int c){
         state = FSLASH;
         putchar('\\');
     }
+    else if (c == '"') {
+        state = DSTRING;
+        putchar('/');
+        putchar(c);
+    }
+    else if (c == '\'') {
+        state = SSTRING;
+        putchar('/');
+        putchar(c);
+    }
     else {
         state = CODE;
         putchar('\\');
@@ -233,6 +243,9 @@ int main(void) {
                 state = handleSSTRING_BSLASH(c);
                 break;
         }
+    }
+    if (state == FSTAR) {
+        return EXIT_FAILURE;
     }
     return 0;
 }
