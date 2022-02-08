@@ -64,9 +64,10 @@ enum Statetype handleFStar(int c) {
     if (c == '*'){
         state = STAR;
     }
+    /*
     else if (c == '\\'){
         state = FSTAR_BSLASH;
-    }
+    } */
     else {
         state = FSTAR;
     }
