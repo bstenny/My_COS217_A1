@@ -35,7 +35,7 @@ enum Statetype handleFSlash(int c) {
     enum Statetype state;
     if (c == '*'){
         state = FSTAR;
-        putchar(' ');
+        // putchar(' ');
     }
     else if (c == '/'){
         state = FSLASH;
@@ -54,9 +54,11 @@ enum Statetype handleFStar(int c) {
     if (c == '*'){
         state = STAR;
     }
+    /*
     else if (c == '\\'){
         state = FSTAR_BSLASH;
     }
+     */
     else {
         state = FSTAR;
     }
