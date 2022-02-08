@@ -143,12 +143,12 @@ enum Statetype handleBSLASH(int c){
     }
     else if (c == '"') {
         state = DSTRING;
-        putchar('/');
+        putchar('\\');
         putchar(c);
     }
     else if (c == '\'') {
         state = SSTRING;
-        putchar('/');
+        putchar('\\');
         putchar(c);
     }
     else {
@@ -244,7 +244,7 @@ int main(void) {
                 break;
         }
     }
-    if (state == FSTAR) {
+    if (state == FSTAR || STAR) {
         return 1;
     }
     return 0;
