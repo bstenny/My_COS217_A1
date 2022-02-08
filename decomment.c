@@ -242,7 +242,7 @@ int main(void) {
     int c;
     enum Statetype state = CODE;
     commentLine = -1;
-    currentLine = 0;
+    currentLine = 1;
     while ((c = getchar()) != EOF) {
         switch (state) {
             case CODE:
