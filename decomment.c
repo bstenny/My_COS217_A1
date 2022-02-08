@@ -68,6 +68,10 @@ enum Statetype handleFStar(int c) {
     else if (c == '\\'){
         state = FSTAR_BSLASH;
     } */
+    else if (c == 10) { /* This is the newline ASCII character */
+        putchar(c);
+        state = FSTAR;
+    }
     else {
         state = FSTAR;
     }
@@ -81,6 +85,10 @@ enum Statetype handleStar(int c) {
     }
     else if (c == '*'){
         state = STAR;
+    }
+    else if (c == 10) { /* This is the newline ASCII character */
+        putchar(c);
+        state = FSTAR;
     }
     else {
         state = FSTAR;
