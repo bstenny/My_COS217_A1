@@ -41,6 +41,16 @@ enum Statetype handleFSlash(int c) {
         state = FSLASH;
         putchar('/');
     }
+    else if (c == '"') {
+        state = DSTRING;
+        putchar('/');
+        putchar(c);
+    }
+    else if (c == '\'') {
+        state = SSTRING;
+        putchar('/');
+        putchar(c);
+    }
     else {
         state = CODE;
         putchar('/');
