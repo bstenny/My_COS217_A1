@@ -3,9 +3,11 @@
 /* Author: Blake Stenstrom                                            */
 /*--------------------------------------------------------------------*/
 #include<stdio.h>
+#include<stdlib.h>
 
 enum Statetype {CODE, FSLASH, BSLASH, FSTAR, STAR, FSTAR_BSLASH,
         DSTRING, SSTRING, DSTRING_BSLASH, SSTRING_BSLASH};
+int commentLine;
 
 /* handler function for when code is just in a normal state */
 enum Statetype handleCode(int c) {
@@ -210,6 +212,7 @@ enum Statetype handleFSTAR_BSLASH(int c){
 int main(void) {
     int c;
     enum Statetype state = CODE;
+    commentLine = -1;
     while ((c = getchar()) != EOF) {
         switch (state) {
             case CODE:
@@ -253,9 +256,10 @@ int main(void) {
         putchar('/');
     }
     if (state == FSTAR || state == STAR) {
-        return 1;
+        fprintf(stderr, "Error: line %d: unterminated comment\n", commentLine);
+        return EXIT_FAILURE;
     }
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 
