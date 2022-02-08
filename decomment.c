@@ -244,7 +244,7 @@ int main(void) {
                 break;
         }
     }
-    if (state == FSTAR || STAR) {
+    if (state == FSTAR) {
         return 1;
     }
     return 0;
