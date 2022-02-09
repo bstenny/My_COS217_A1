@@ -5,12 +5,18 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+/* These are all the statetypes I use in my dfa */
 enum Statetype {CODE, FSLASH, BSLASH, FSTAR, STAR, FSTAR_BSLASH,
         DSTRING, SSTRING, DSTRING_BSLASH, SSTRING_BSLASH};
+
+/* using global variables here. I apologize for not trying to use pointers or something else */
 int currentLine;
+/* Will be updated when a comment starts and reset to -1 if the comment ends */
 int commentLine;
 
-/* handler function for when code is just in a normal state */
+/* handler function for when code is just in a normal state
+ * Takes an integer c which will be compared to char values
+ * returns an enum Statetype state*/
 enum Statetype handleCode(int c) {
     enum Statetype state;
     if (c == '/') {
@@ -36,7 +42,9 @@ enum Statetype handleCode(int c) {
     }
     return state;
 }
-/* handler function for when code encounters a forward slash '\' */
+/* handler function for when code encounters a forward slash '\'
+ * Takes an integer c which will be compared to char values
+ * returns an enum Statetype state */
 enum Statetype handleFSlash(int c) {
     enum Statetype state;
     if (c == '*'){
@@ -68,7 +76,9 @@ enum Statetype handleFSlash(int c) {
     }
     return state;
 }
-/* handler function for when code is in a comment */
+/* handler function for when code is in a comment
+ * Takes an integer c which will be compared to char values
+ * returns an enum Statetype state */
 enum Statetype handleFStar(int c) {
     enum Statetype state;
     if (c == '*'){
@@ -88,7 +98,9 @@ enum Statetype handleFStar(int c) {
     }
     return state;
 }
-/* handler function for when the code encounters a star while in a comment */
+/* handler function for when the code encounters a star while in a comment
+ * Takes an integer c which will be compared to char values
+ * returns an enum Statetype state */
 enum Statetype handleStar(int c) {
     enum Statetype state;
     if (c == '/') {
@@ -108,7 +120,9 @@ enum Statetype handleStar(int c) {
     }
     return state;
 }
-/* handler function for when the code encounters a double quote while in a quote state*/
+/* handler function for when the code encounters a double quote while in a quote state
+ * Takes an integer c which will be compared to char values
+ * returns an enum Statetype state */
 enum Statetype handleDString(int c) {
     enum Statetype state;
     if (c == '"'){
@@ -128,7 +142,9 @@ enum Statetype handleDString(int c) {
     return state;
 }
 
-/*handler function for when the code enounters a single quote while in a single quote*/
+/*handler function for when the code is in a string literal with single quotes
+ * Takes an integer c which will be compared to char values
+ * returns an enum Statetype state */
 enum Statetype handleSSTRING(int c){
     enum Statetype state;
     if (c == '\''){
@@ -148,7 +164,9 @@ enum Statetype handleSSTRING(int c){
     return state;
 }
 
-/*handler function for when the code encounters a backslash in normal code*/
+/*handler function for when the code encounters a backslash in normal code
+ * Takes an integer c which will be compared to char values
+ * returns an enum Statetype state */
 enum Statetype handleBSLASH(int c){
     enum Statetype state;
     if (c == 'n'){
@@ -181,7 +199,9 @@ enum Statetype handleBSLASH(int c){
     return state;
 }
 
-/* handler function for when the code encounters a backslash while in a double quote*/
+/* handler function for when the code encounters a backslash while in a double quote
+ * Takes an integer c which will be compared to char values
+ * returns an enum Statetype state */
 enum Statetype handleDSTRING_BSLASH(int c){
     enum Statetype state;
     if (c == 'n'){
@@ -199,7 +219,9 @@ enum Statetype handleDSTRING_BSLASH(int c){
     return state;
 }
 
-/* handler function for when the code encounters a backslash while in a single quote*/
+/* handler function for when the code encounters a backslash while in a single quote
+ * Takes an integer c which will be compared to char values
+ * returns an enum Statetype state */
 enum Statetype handleSSTRING_BSLASH(int c){
     enum Statetype state;
     if (c == 'n'){
@@ -217,7 +239,9 @@ enum Statetype handleSSTRING_BSLASH(int c){
     return state;
 }
 
-/* handler function for when the code encounters a backslash while in a comment */
+/* handler function for when the code encounters a backslash while in a comment
+ * Takes an integer c which will be compared to char values
+ * returns an enum Statetype state */
 enum Statetype handleFSTAR_BSLASH(int c){
     enum Statetype state;
     if (c == 'n'){
@@ -237,7 +261,10 @@ enum Statetype handleFSTAR_BSLASH(int c){
     return state;
 }
 
-
+/* main function
+ * Implements the dfa and all associated programs
+ * Does not take any arguments
+ * Returns an int in the form of EXIT_SUCCESS or EXIT_FAILURE*/
 int main(void) {
     int c;
     enum Statetype state = CODE;
@@ -285,6 +312,7 @@ int main(void) {
     if (state == FSLASH) {
         putchar('/');
     }
+    /* These are unacceptable end states */
     if (state == FSTAR || state == STAR) {
         fprintf(stderr, "Error: line %d: unterminated comment\n", commentLine);
         return EXIT_FAILURE;

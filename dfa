@@ -1,0 +1,59 @@
+DFA file
+
+CODE (accept)
+    /: next state FSLASH
+    "": next state DSTRING
+    ': next state SSTRING
+    \: next state BSLASH
+    Else: next state CODE
+
+FSLASH (accept)
+    *: next state FSTAR
+    /: next state FLASH
+    ": next state DSTRING
+    ': next state SSTRING
+    Else: next state CODE
+
+FSTAR (reject)
+    *: next state STAR
+    \: next state FSTAR_BSLASH
+    Else: next state FSTAR
+
+STAR (reject)
+    /: next state CODE
+    *: next state STAR
+    10: next state FSTAR
+    else: next state FSTAR
+
+DSTRING (accept)
+    ": next state CODE
+    \: next state DSTRING_BSLASH
+    Else: next state DSTRING
+
+SSTRING (accept)
+    ': next state CODE
+    \: next state SSTRING_BSLASH
+    Else: next state SSTRING
+
+BSLASH (accept)
+    n: next state CODE
+    /: next state FSLASH
+    ": next state DSTRING
+    ': next state SSTRING
+    Else: next state CODE
+
+DSTRING_BSLASH (accept)
+    n: next state DSTRING
+    Else: next state DSTRING
+
+SSTRING_BSLASH (accept)
+    n: next state SSTRING
+    Else: next state SSTRING
+
+FSTAR_BSLASH (accept)
+    n: next state FSTAR
+    *: next state STAR
+    Else: next state FSTAR
+
+
+
